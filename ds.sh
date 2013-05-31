@@ -1,5 +1,7 @@
 #!/bin/sh
 
+IFS=$'\n'
+
 filepath='./files.txt'
 folderpath='./folders.txt'
 
@@ -15,5 +17,25 @@ folders=$(find $2 -type d -user $1)
 foldercount=$(echo "$folders" | wc -l)
 echo "found $filecount files owned by $1"
 echo "found $foldercount folders owned by $1"
-echo "$files" > $filepath
-echo "$folders" > $folderpath
+
+#du -h `$files`
+echo '' > $filepath
+for line in $files
+do 
+        echo -e $(du -h $line) >> $filepath
+done
+
+echo '' > $folderpath
+for line in $folders
+do 
+        echo -e $(du -sh --separate-dirs $line) >> $folderpath
+done
+
+#echo $files > $filepath
+#for line in $files
+#do
+#        echo $(du "$line") >> $filepath
+#done
+
+#echo `du -h "$folders"` > $folderpath
+
