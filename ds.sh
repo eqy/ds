@@ -18,20 +18,17 @@ foldercount=$(echo "$folders" | wc -l)
 echo "found $filecount files owned by $1"
 echo "found $foldercount folders owned by $1"
 
-find $2 -type f -user $1 | xargs du -h > $filepath
-find $2 -type d -user $1 | xargs du -sh > $folderpath
-#du -h `$files`
-#echo '' > $filepath
-#for line in $files
-#do 
-#        echo -e $(du -h $line) >> $filepath
-#done
+echo -n '' > $filepath
+for line in $files
+do 
+        echo -e $(du -h $line) >> $filepath
+done
 
-#echo '' > $folderpath
-#for line in $folders
-#do 
-#        echo -e $(du -sh --separate-dirs $line) >> $folderpath
-#done
+echo -n '' > $folderpath
+for line in $folders
+do 
+        echo -e $(du -sh --separate-dirs $line) >> $folderpath
+done
 
 #echo $files > $filepath
 #for line in $files
